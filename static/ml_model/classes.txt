@@ -1,0 +1,13 @@
+abies_concolor
+abies_nordmanniana
+acer_campestre
+acer_ginnala
+acer_griseum
+acer_negundo
+acer_palmatum
+acer_pensylvanicum
+acer_platanoides
+acer_pseudoplatanus
+acer_rubrum
+acer_saccharinum
+aesculus_flava

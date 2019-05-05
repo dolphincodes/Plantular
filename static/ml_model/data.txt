@@ -1,0 +1,14 @@
+ is detected. Recomended plants are acer_ginnala and acer_palmatum.
+ is detected. Recomended plants are acer_griseum and acer_rubrum.
+ is detected. Recomended plants are aesculus_flava and acer_pseudoplatanus.
+ is detected. Recomended plants are abies_concolor and acer_palmatum.
+ is detected. Recomended plants are abies_nordmanniana and acer_rubrum.
+ is detected. Recomended plants are acer_platanoides and acer_saccharinum.
+ is detected. Recomended plants are acer_ginnala and abies_concolor.
+ is detected. Recomended plants are acer_negundo and acer_saccharinum.
+ is detected. Recomended plants are acer_saccharinum and acer_negundo.
+ is detected. Recomended plants are aesculus_flava and acer_campestre.
+ is detected. Recomended plants are acer_griseum and abies_nordmanniana.
+ is detected. Recomended plants are acer_platanoides and acer_negundo.
+ is detected. Recomended plants are acer_pseudoplatanus and acer_campestre.
+

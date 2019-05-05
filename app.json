@@ -1,0 +1,20 @@
+{
+  "name": "Plantular",
+  "description": "A plant recommendation system",
+  "image": "heroku/python",
+  "keywords": ["python", "flask" ],
+  "env": {
+    "SECRET_KEY": {
+      "description": "The secret key for the Django application.",
+      "generator": "secret"
+    }
+  },
+  "environments": {
+    "test": {
+      "scripts": {
+        "test-setup": "python app.py",
+        "test": "python app.py"
+      }
+    }
+  }
+}
