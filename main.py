@@ -29,7 +29,7 @@ from torch.autograd import Variable
 from torch.utils.data.sampler import SubsetRandomSampler
 
 
-data_dir='static/image'
+data_dir='static/images'
 input_size=299
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 app = Flask(__name__) 
@@ -50,23 +50,20 @@ def ml():
         classes.append(x[:-1])
     f.close()
     to_pil = transforms.ToPILImage()
-    data = datasets.ImageFolder(data_dir, transform=transform)
-    loader = torch.utils.data.DataLoader(data)
-    dataiter = iter(loader)
+    eval_data = datasets.ImageFolder(data_dir, transform=transform)
+    dataloader = torch.utils.data.DataLoader(eval_data)
+    dataiter = iter(dataloader)
     images, labels = dataiter.next()
     for ii in range(len(images)):
-        image = to_pil(images[ii])
-        image_tensor = transform(image).float()
-        image_tensor = image_tensor.unsqueeze_(0)
-        input = Variable(image_tensor) 
+        input = Variable(images) 
         input = input.to(device)
-        output = model(input)
-        index=output.data.cpu().numpy().argmax()
-        result=str(classes[index])+" "
+        log_ps = model(input)
+        index = log_ps.data.cpu().numpy().argmax()
+        result = str(classes[index]) + " "
         f = open("static/ml_model/data.txt","r")
         for x, line in enumerate(f):
             if x == int(index):
-                result+=str(line)
+                result += str(line)
         f.close()
     return result
 
@@ -85,9 +82,9 @@ def api():
             filename = "image.jpeg"
             newFile = open (filename, "wb")
             newFile.write(file_object)
-            os.rename(filename,"static/image/test_image/"+filename)
+            os.rename(filename,"static/images/test_image/"+filename)
             result = ml()
-            os.remove(os.path.join('static/image/test_image/', filename))
+            os.remove(os.path.join('static/images/test_image/', filename))
             print(result)
             return result
         else:
@@ -110,10 +107,10 @@ def upload_file():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join('static/image/test_image/', filename))
+            file.save(os.path.join('static/images/test_image/', filename))
             result = ml()
             
-            os.remove(os.path.join('static/image/test_image/', filename))
+            os.remove(os.path.join('static/images/test_image/', filename))
             return result
     return render_template('index.html')
 
@@ -121,10 +118,11 @@ def upload_file():
 @app.errorhandler(500)
 def server_error(e):
     logging.exception('An error occurred during a request.')
-    return """
-    An internal error occurred: <pre>{}</pre>
-    See logs for full stacktrace.
-    """.format(e), 500
+    return render_template('500.html'), 500
+    
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 
 if __name__ == '__main__':
